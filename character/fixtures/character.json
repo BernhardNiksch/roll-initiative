@@ -1,0 +1,259 @@
+[
+{
+    "model": "character.characterrace",
+    "pk": "3d1b90d2-4a2f-4556-98b0-8a3c851944a6",
+    "fields": {
+        "name": "Elf",
+        "description": "Tall-ish folk with pointy ears.",
+        "speed": 30,
+        "strength_increase": 0,
+        "dexterity_increase": 2,
+        "constitution_increase": 0,
+        "intelligence_increase": 0,
+        "wisdom_increase": 1,
+        "charisma_increase": 0,
+        "languages": "[\"English\", \"Elvish\"]"
+    }
+},
+{
+    "model": "character.characterrace",
+    "pk": "50d6fd1c-052e-4ed6-8473-ec55a4920770",
+    "fields": {
+        "name": "Dwarf",
+        "description": "Short and stout.",
+        "speed": 25,
+        "strength_increase": 2,
+        "dexterity_increase": 0,
+        "constitution_increase": 1,
+        "intelligence_increase": 0,
+        "wisdom_increase": 0,
+        "charisma_increase": 0,
+        "languages": "[\"English\", \"Dwarvish\"]"
+    }
+},
+{
+    "model": "character.characterrace",
+    "pk": "6eba22a9-3ed0-42af-8095-c75fb49a1759",
+    "fields": {
+        "name": "Homo Sapiens",
+        "description": "Descended from apes.",
+        "speed": 30,
+        "strength_increase": 0,
+        "dexterity_increase": 1,
+        "constitution_increase": 1,
+        "intelligence_increase": 0,
+        "wisdom_increase": 1,
+        "charisma_increase": 1,
+        "languages": "[\"English\"]"
+    }
+},
+{
+    "model": "character.characterclass",
+    "pk": "40d863b8-1c71-42c9-a28d-3608006eafbc",
+    "fields": {
+        "name": "Ranger",
+        "description": "Natural magic warrior.",
+        "hit_die": 10,
+        "primary_abilities": "[\"WISDOM\", \"DEXTERITY\"]",
+        "saving_throw_proficiencies": "[\"STRENGTH\", \"DEXTERITY\"]",
+        "armor_proficiencies": [
+            "c4f91e5b-6c0a-4a33-a908-80c2ed3f6aa4",
+            "44b65e10-a532-43fa-b2e6-4ef3b1ae85e6",
+            "05dfcf43-7125-4c7e-8f22-e43d8c624718",
+            "1c0125d3-48f0-4a8b-823d-f06a1693f772",
+            "c54dd8e2-9ea0-4d64-b2b7-023f991c49e9",
+            "16070d4b-f8d1-4f58-adcc-9feb1644abd0"
+        ],
+        "weapon_proficiencies": [
+            "46db55e8-4653-4a6c-9ba8-b486e2970a7b",
+            "b075931c-72bd-49c6-b7db-f2e466b659ec",
+            "30d42ca8-3c86-4c29-b537-0f94972e77c8",
+            "4706780a-434c-433e-b9d3-f7af0c0cde6a"
+        ],
+        "tool_proficiencies": []
+    }
+},
+{
+    "model": "character.characterclass",
+    "pk": "a65632b2-17d0-43d1-9ba9-61ee9b68e744",
+    "fields": {
+        "name": "Barbarian",
+        "description": "Raging caveman warrior.",
+        "hit_die": 12,
+        "primary_abilities": "[\"STRENGTH\"]",
+        "saving_throw_proficiencies": "[\"CONSTITUTION\"]",
+        "armor_proficiencies": [
+            "c4f91e5b-6c0a-4a33-a908-80c2ed3f6aa4",
+            "44b65e10-a532-43fa-b2e6-4ef3b1ae85e6",
+            "05dfcf43-7125-4c7e-8f22-e43d8c624718",
+            "1c0125d3-48f0-4a8b-823d-f06a1693f772",
+            "c54dd8e2-9ea0-4d64-b2b7-023f991c49e9",
+            "16070d4b-f8d1-4f58-adcc-9feb1644abd0"
+        ],
+        "weapon_proficiencies": [
+            "2b1729c7-5082-47b2-8fa1-4e863c18f395",
+            "c268e9c1-4887-464b-9b87-50f234b4587f",
+            "97331616-e8e2-4596-85e8-b961145f8b7f",
+            "7833ff9a-8bf3-48a4-8abb-9281730e3680",
+            "f55af98d-d8a5-4f1c-926d-b5dbede623cf"
+        ],
+        "tool_proficiencies": []
+    }
+},
+{
+    "model": "character.characterclass",
+    "pk": "ea023174-5774-4bba-ad10-8d4bcd8483b9",
+    "fields": {
+        "name": "Bard",
+        "description": "Pickpocket with a lute.",
+        "hit_die": 8,
+        "primary_abilities": "[\"CHARISMA\"]",
+        "saving_throw_proficiencies": "[\"CHARISMA\", \"DEXTERITY\"]",
+        "armor_proficiencies": [
+            "c4f91e5b-6c0a-4a33-a908-80c2ed3f6aa4",
+            "44b65e10-a532-43fa-b2e6-4ef3b1ae85e6",
+        ],
+        "weapon_proficiencies": [
+            "97331616-e8e2-4596-85e8-b961145f8b7f",
+            "7833ff9a-8bf3-48a4-8abb-9281730e3680",
+            "f55af98d-d8a5-4f1c-926d-b5dbede623cf",
+            "30d42ca8-3c86-4c29-b537-0f94972e77c8"
+        ],
+        "tool_proficiencies": [
+            "a91810c2-15c0-42a4-8691-a4e7794388bc"
+        ]
+    }
+},
+{
+    "model": "character.characterclass",
+    "pk": "f586a881-de42-49b7-a6df-afba182b63cc",
+    "fields": {
+        "name": "Fighter",
+        "description": "Loves MMA more than his mum.",
+        "hit_die": 10,
+        "primary_abilities": "[\"STRENGTH\", \"DEXTERITY\"]",
+        "saving_throw_proficiencies": "[\"CONSTITUTION\", \"STRENGTH\"]",
+        "armor_proficiencies": [
+            "4b3bf4a9-9cfa-4c57-831a-acc17433934a",
+            "c4f91e5b-6c0a-4a33-a908-80c2ed3f6aa4",
+            "44b65e10-a532-43fa-b2e6-4ef3b1ae85e6",
+            "05dfcf43-7125-4c7e-8f22-e43d8c624718",
+            "1c0125d3-48f0-4a8b-823d-f06a1693f772",
+            "c54dd8e2-9ea0-4d64-b2b7-023f991c49e9",
+            "16070d4b-f8d1-4f58-adcc-9feb1644abd0"
+        ],
+        "weapon_proficiencies": [
+            "2b1729c7-5082-47b2-8fa1-4e863c18f395",
+            "c268e9c1-4887-464b-9b87-50f234b4587f",
+            "97331616-e8e2-4596-85e8-b961145f8b7f",
+            "7833ff9a-8bf3-48a4-8abb-9281730e3680",
+            "f55af98d-d8a5-4f1c-926d-b5dbede623cf"
+        ],
+        "tool_proficiencies": []
+    }
+},
+{
+    "model": "character.character",
+    "pk": "8edc2380-fb63-4773-b059-1d7be818e6bd",
+    "fields": {
+        "max_hp": 15,
+        "current_hp": 15,
+        "temporary_hp": 0,
+        "armor_class": 13,
+        "strength": 12,
+        "dexterity": 14,
+        "constitution": 11,
+        "intelligence": 9,
+        "wisdom": 9,
+        "charisma": 14,
+        "backstory": "Made rock music in the underground scene",
+        "campaign": "5c0257f1-e8a2-4121-8d7d-0e6ad5654d66",
+        "copper": 5,
+        "silver": 0,
+        "electrum": 0,
+        "gold": 14,
+        "platinum": 0,
+        "title": "Dr.",
+        "first_name": "Glod",
+        "last_name": "Glodson",
+        "age": 86,
+        "race": "50d6fd1c-052e-4ed6-8473-ec55a4920770",
+        "character_class": "ea023174-5774-4bba-ad10-8d4bcd8483b9",
+        "level": 2,
+        "experience_points": 350,
+        "languages": "[\"Common\", \"Dwarvish\"]",
+        "tools": [
+            "a91810c2-15c0-42a4-8691-a4e7794388bc"
+        ]
+    }
+},
+{
+    "model": "character.character",
+    "pk": "baf70d99-4743-4d85-96f7-4c9c9614331b",
+    "fields": {
+        "max_hp": 34,
+        "current_hp": 19,
+        "temporary_hp": 0,
+        "armor_class": 16,
+        "strength": 18,
+        "dexterity": 13,
+        "constitution": 14,
+        "intelligence": 5,
+        "wisdom": 7,
+        "charisma": 11,
+        "backstory": "Education is important, but muscles is importanter.",
+        "campaign": "d4d3bfa0-2922-46d9-827c-c55a9c1600b1",
+        "copper": 5,
+        "silver": 9,
+        "electrum": null,
+        "gold": 1,
+        "platinum": null,
+        "title": "Bruh",
+        "first_name": "Stevey",
+        "last_name": "",
+        "age": 24,
+        "race": "6eba22a9-3ed0-42af-8095-c75fb49a1759",
+        "character_class": "f586a881-de42-49b7-a6df-afba182b63cc",
+        "level": 3,
+        "experience_points": 1200,
+        "languages": "[\"Common\"]",
+        "tools": []
+    }
+},
+{
+    "model": "character.character",
+    "pk": "de1ec576-8aa9-4892-bfe5-e6193166a222",
+    "fields": {
+        "max_hp": 8,
+        "current_hp": 6,
+        "temporary_hp": 0,
+        "armor_class": 11,
+        "strength": 9,
+        "dexterity": 14,
+        "constitution": 10,
+        "intelligence": 8,
+        "wisdom": 8,
+        "charisma": 13,
+        "backstory": "",
+        "campaign": "5c0257f1-e8a2-4121-8d7d-0e6ad5654d66",
+        "copper": 0,
+        "silver": 9,
+        "electrum": 0,
+        "gold": 7,
+        "platinum": 0,
+        "title": "mister",
+        "first_name": "Gerold",
+        "last_name": "Ellefson",
+        "age": 21,
+        "race": "83f34ea2-1412-40b4-b3cc-aab1d7554353",
+        "character_class": "40d863b8-1c71-42c9-a28d-3608006eafbc",
+        "level": 1,
+        "experience_points": 35,
+        "languages": "[\"Common\", \"Elvish\"]",
+        "tools": [
+            "a02c7412-5085-412e-b1e6-ece32eb7b745",
+            "e5edf797-177c-461b-9240-449a08e1426d"
+        ]
+    }
+}
+]

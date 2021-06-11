@@ -1,0 +1,15 @@
+CHARISMA = "CHARISMA"
+CONSTITUTION = "CONSTITUTION"
+DEXTERITY = "DEXTERITY"
+INTELLIGENCE = "INTELLIGENCE"
+STRENGTH = "STRENGTH"
+WISDOM = "WISDOM"
+
+ABILITY_CHOICES = (
+    (CHARISMA, "Charisma"),
+    (CONSTITUTION, "Constitution"),
+    (DEXTERITY, "Dexterity"),
+    (INTELLIGENCE, "Intelligence"),
+    (STRENGTH, "Strength"),
+    (WISDOM, "Wisdom"),
+)

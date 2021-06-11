@@ -1,0 +1,776 @@
+[
+{
+    "model": "equipment.armor",
+    "pk": "05dfcf43-7125-4c7e-8f22-e43d8c624718",
+    "fields": {
+        "name": "Breastplate",
+        "armor_type": "MEDIUM",
+        "gold": 350,
+        "armor_class": 14,
+        "armor_class_increase": 0,
+        "dex_modifier_max": 2,
+        "strength_requirement": 0,
+        "stealth_disadvantage": false,
+        "weight": "22.00"
+    }
+},
+{
+    "model": "equipment.armor",
+    "pk": "16070d4b-f8d1-4f58-adcc-9feb1644abd0",
+    "fields": {
+        "name": "Shield",
+        "armor_type": "SHIELD",
+        "gold": 12,
+        "armor_class": 0,
+        "armor_class_increase": 2,
+        "dex_modifier_max": 0,
+        "strength_requirement": 0,
+        "stealth_disadvantage": false,
+        "weight": "5.00"
+    }
+},
+{
+    "model": "equipment.armor",
+    "pk": "1c0125d3-48f0-4a8b-823d-f06a1693f772",
+    "fields": {
+        "name": "Chain Shirt",
+        "armor_type": "MEDIUM",
+        "gold": 45,
+        "armor_class": 13,
+        "armor_class_increase": 0,
+        "dex_modifier_max": 2,
+        "strength_requirement": 0,
+        "stealth_disadvantage": false,
+        "weight": "20.00"
+    }
+},
+{
+    "model": "equipment.armor",
+    "pk": "44b65e10-a532-43fa-b2e6-4ef3b1ae85e6",
+    "fields": {
+        "name": "Padded",
+        "armor_type": "LIGHT",
+        "gold": 5,
+        "armor_class": 11,
+        "armor_class_increase": 0,
+        "dex_modifier_max": 10,
+        "strength_requirement": 0,
+        "stealth_disadvantage": true,
+        "weight": "8.00"
+    }
+},
+{
+    "model": "equipment.armor",
+    "pk": "4b3bf4a9-9cfa-4c57-831a-acc17433934a",
+    "fields": {
+        "name": "Chain Mail",
+        "armor_type": "HEAVY",
+        "gold": 75,
+        "armor_class": 16,
+        "armor_class_increase": 0,
+        "dex_modifier_max": 0,
+        "strength_requirement": 13,
+        "stealth_disadvantage": true,
+        "weight": "55.00"
+    }
+},
+{
+    "model": "equipment.armor",
+    "pk": "c4f91e5b-6c0a-4a33-a908-80c2ed3f6aa4",
+    "fields": {
+        "name": "Leather",
+        "armor_type": "LIGHT",
+        "gold": 12,
+        "armor_class": 11,
+        "armor_class_increase": 0,
+        "dex_modifier_max": 10,
+        "strength_requirement": 0,
+        "stealth_disadvantage": false,
+        "weight": "9.00"
+    }
+},
+{
+    "model": "equipment.armor",
+    "pk": "c54dd8e2-9ea0-4d64-b2b7-023f991c49e9",
+    "fields": {
+        "name": "Hide",
+        "armor_type": "MEDIUM",
+        "gold": 9,
+        "armor_class": 12,
+        "armor_class_increase": 0,
+        "dex_modifier_max": 2,
+        "strength_requirement": 0,
+        "stealth_disadvantage": false,
+        "weight": "13.00"
+    }
+},
+{
+    "model": "equipment.characterarmor",
+    "pk": "0b7462c8-b386-4533-86ac-a07e36a4d68e",
+    "fields": {
+        "character": "de1ec576-8aa9-4892-bfe5-e6193166a222",
+        "armor": "c4f91e5b-6c0a-4a33-a908-80c2ed3f6aa4",
+        "equipped": false
+    }
+},
+{
+    "model": "equipment.characterarmor",
+    "pk": "7ee380b0-befc-46b8-af60-aab36f1731f6",
+    "fields": {
+        "character": "8edc2380-fb63-4773-b059-1d7be818e6bd",
+        "armor": "c4f91e5b-6c0a-4a33-a908-80c2ed3f6aa4",
+        "equipped": true
+    }
+},
+{
+    "model": "equipment.weapon",
+    "pk": "2b1729c7-5082-47b2-8fa1-4e863c18f395",
+    "fields": {
+        "damage_die": 8,
+        "damage_die_count": 1,
+        "damage_type": "SLASHING",
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 10,
+        "platinum": null,
+        "name": "Battleaxe",
+        "weapon_type": "MARTIAL_MELEE",
+        "weight": "4.00",
+        "normal_range": null,
+        "maximum_range": null,
+        "ammunition": false,
+        "finesse": false,
+        "heavy": false,
+        "light": false,
+        "loading": false,
+        "reach": false,
+        "special": false,
+        "thrown": false,
+        "two_handed": false,
+        "versatile": true
+    }
+},
+{
+    "model": "equipment.weapon",
+    "pk": "30d42ca8-3c86-4c29-b537-0f94972e77c8",
+    "fields": {
+        "damage_die": 8,
+        "damage_die_count": 1,
+        "damage_type": "PIERCING",
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 25,
+        "platinum": null,
+        "name": "Light Crossbow",
+        "weapon_type": "SIMPLE_RANGED",
+        "weight": "5.00",
+        "normal_range": 80,
+        "maximum_range": 320,
+        "ammunition": true,
+        "finesse": false,
+        "heavy": false,
+        "light": false,
+        "loading": true,
+        "reach": false,
+        "special": false,
+        "thrown": false,
+        "two_handed": true,
+        "versatile": false
+    }
+},
+{
+    "model": "equipment.weapon",
+    "pk": "46db55e8-4653-4a6c-9ba8-b486e2970a7b",
+    "fields": {
+        "damage_die": 10,
+        "damage_die_count": 1,
+        "damage_type": "PIERCING",
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 50,
+        "platinum": null,
+        "name": "Heavy Crossbow",
+        "weapon_type": "MARTIAL_RANGED",
+        "weight": "18.00",
+        "normal_range": 100,
+        "maximum_range": 400,
+        "ammunition": true,
+        "finesse": false,
+        "heavy": true,
+        "light": false,
+        "loading": true,
+        "reach": false,
+        "special": false,
+        "thrown": false,
+        "two_handed": true,
+        "versatile": false
+    }
+},
+{
+    "model": "equipment.weapon",
+    "pk": "4706780a-434c-433e-b9d3-f7af0c0cde6a",
+    "fields": {
+        "damage_die": 6,
+        "damage_die_count": 1,
+        "damage_type": "PIERCING",
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 25,
+        "platinum": null,
+        "name": "Shortbow",
+        "weapon_type": "SIMPLE_RANGED",
+        "weight": "2.00",
+        "normal_range": 80,
+        "maximum_range": 320,
+        "ammunition": true,
+        "finesse": false,
+        "heavy": false,
+        "light": false,
+        "loading": false,
+        "reach": false,
+        "special": false,
+        "thrown": false,
+        "two_handed": true,
+        "versatile": false
+    }
+},
+{
+    "model": "equipment.weapon",
+    "pk": "7833ff9a-8bf3-48a4-8abb-9281730e3680",
+    "fields": {
+        "damage_die": 4,
+        "damage_die_count": 1,
+        "damage_type": "BLUDGEONING",
+        "copper": 0,
+        "silver": 1,
+        "electrum": 0,
+        "gold": 0,
+        "platinum": 0,
+        "name": "Club",
+        "weapon_type": "SIMPLE_MELEE",
+        "weight": "2.00",
+        "normal_range": null,
+        "maximum_range": null,
+        "ammunition": false,
+        "finesse": false,
+        "heavy": false,
+        "light": true,
+        "loading": false,
+        "reach": false,
+        "special": false,
+        "thrown": false,
+        "two_handed": false,
+        "versatile": false
+    }
+},
+{
+    "model": "equipment.weapon",
+    "pk": "97331616-e8e2-4596-85e8-b961145f8b7f",
+    "fields": {
+        "damage_die": 6,
+        "damage_die_count": 1,
+        "damage_type": "PIERCING",
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 10,
+        "platinum": null,
+        "name": "Shortsword",
+        "weapon_type": "MARTIAL_MELEE",
+        "weight": "2.00",
+        "normal_range": null,
+        "maximum_range": null,
+        "ammunition": false,
+        "finesse": true,
+        "heavy": false,
+        "light": true,
+        "loading": false,
+        "reach": false,
+        "special": false,
+        "thrown": false,
+        "two_handed": false,
+        "versatile": false
+    }
+},
+{
+    "model": "equipment.weapon",
+    "pk": "b075931c-72bd-49c6-b7db-f2e466b659ec",
+    "fields": {
+        "damage_die": 4,
+        "damage_die_count": 1,
+        "damage_type": "PIERCING",
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 50,
+        "platinum": null,
+        "name": "Longbow",
+        "weapon_type": "MARTIAL_RANGED",
+        "weight": "2.00",
+        "normal_range": 150,
+        "maximum_range": 600,
+        "ammunition": true,
+        "finesse": false,
+        "heavy": true,
+        "light": false,
+        "loading": false,
+        "reach": false,
+        "special": false,
+        "thrown": false,
+        "two_handed": true,
+        "versatile": false
+    }
+},
+{
+    "model": "equipment.weapon",
+    "pk": "c268e9c1-4887-464b-9b87-50f234b4587f",
+    "fields": {
+        "damage_die": 6,
+        "damage_die_count": 2,
+        "damage_type": "SLASHING",
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 50,
+        "platinum": null,
+        "name": "Greatsword",
+        "weapon_type": "MARTIAL_MELEE",
+        "weight": "6.00",
+        "normal_range": null,
+        "maximum_range": null,
+        "ammunition": false,
+        "finesse": false,
+        "heavy": true,
+        "light": false,
+        "loading": false,
+        "reach": false,
+        "special": false,
+        "thrown": false,
+        "two_handed": true,
+        "versatile": false
+    }
+},
+{
+    "model": "equipment.weapon",
+    "pk": "f55af98d-d8a5-4f1c-926d-b5dbede623cf",
+    "fields": {
+        "damage_die": 6,
+        "damage_die_count": 1,
+        "damage_type": "BLUDGEONING",
+        "copper": null,
+        "silver": 2,
+        "electrum": null,
+        "gold": null,
+        "platinum": null,
+        "name": "Quarterstaff",
+        "weapon_type": "SIMPLE_MELEE",
+        "weight": "4.00",
+        "normal_range": null,
+        "maximum_range": null,
+        "ammunition": false,
+        "finesse": false,
+        "heavy": false,
+        "light": false,
+        "loading": false,
+        "reach": false,
+        "special": false,
+        "thrown": false,
+        "two_handed": false,
+        "versatile": true
+    }
+},
+{
+    "model": "equipment.characterweapon",
+    "pk": "6529f973-c7fe-4d23-87fb-3fc01056a358",
+    "fields": {
+        "character": "de1ec576-8aa9-4892-bfe5-e6193166a222",
+        "weapon": "b075931c-72bd-49c6-b7db-f2e466b659ec",
+        "equipped": true
+    }
+},
+{
+    "model": "equipment.characterweapon",
+    "pk": "6f5fa048-f5cd-4d75-9c44-6303ffa5cc45",
+    "fields": {
+        "character": "8edc2380-fb63-4773-b059-1d7be818e6bd",
+        "weapon": "2b1729c7-5082-47b2-8fa1-4e863c18f395",
+        "equipped": true
+    }
+},
+{
+    "model": "equipment.characterweapon",
+    "pk": "eba38627-b455-4c76-9b11-ec73d752683c",
+    "fields": {
+        "character": "8edc2380-fb63-4773-b059-1d7be818e6bd",
+        "weapon": "30d42ca8-3c86-4c29-b537-0f94972e77c8",
+        "equipped": false
+    }
+},
+{
+    "model": "equipment.adventuringgear",
+    "pk": "13eda691-0885-4054-bcbf-7f6dee351ad0",
+    "fields": {
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 25,
+        "platinum": null,
+        "name": "Book",
+        "weight": "5.00",
+        "description": "Can be sketchbook, spell, literature... Anything.",
+        "length": null,
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.adventuringgear",
+    "pk": "291cf7c6-6c6b-4208-84fa-c2d823d5e8c4",
+    "fields": {
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 10,
+        "platinum": null,
+        "name": "Rope - Silk",
+        "weight": "5.00",
+        "description": "50 feet of silky rope.",
+        "length": 50,
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.adventuringgear",
+    "pk": "2dccf9bf-9502-4ebd-9583-50031cc4c574",
+    "fields": {
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 2,
+        "platinum": null,
+        "name": "Backpack",
+        "weight": "5.50",
+        "description": "Keep stuff in it!\r\n30 pounds of stuff!\r\nOr 1 cubic foot?\r\nStrap items to it, like your bedroll or rope.",
+        "length": null,
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.adventuringgear",
+    "pk": "4561a9dc-4a5e-4f22-9534-ebca6d9b165f",
+    "fields": {
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 1,
+        "platinum": null,
+        "name": "Marbles",
+        "weight": "2.00",
+        "description": "Spill them with an action to make someone lose their balance.",
+        "length": null,
+        "quantity": 1000
+    }
+},
+{
+    "model": "equipment.adventuringgear",
+    "pk": "6ad0fff8-ec84-4196-b31d-f70e3ad9d53d",
+    "fields": {
+        "copper": null,
+        "silver": 6,
+        "electrum": null,
+        "gold": null,
+        "platinum": null,
+        "name": "Rations",
+        "weight": "2.00",
+        "description": "1 day of rations.",
+        "length": null,
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.adventuringgear",
+    "pk": "b37501b6-7378-4ca3-9835-77550cb4b402",
+    "fields": {
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 9,
+        "platinum": null,
+        "name": "Ink Bottle",
+        "weight": "0.00",
+        "description": "1 ounce of ink.",
+        "length": null,
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.adventuringgear",
+    "pk": "bf13f7c5-28b1-433d-8dc2-f8d8cfd6c9a7",
+    "fields": {
+        "copper": 3,
+        "silver": null,
+        "electrum": null,
+        "gold": null,
+        "platinum": null,
+        "name": "Ink Pen",
+        "weight": "0.00",
+        "description": "Way to cheap to be a PARKER.",
+        "length": null,
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.adventuringgear",
+    "pk": "c7dd9699-55a0-4e9e-ae81-56319aa18c42",
+    "fields": {
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 1,
+        "platinum": null,
+        "name": "Rope - Hempen",
+        "weight": "10.00",
+        "description": "50 feet of hempy rope.",
+        "length": 50,
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.adventuringgear",
+    "pk": "d4824576-80e4-4a4a-a103-10a174abd871",
+    "fields": {
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 1,
+        "platinum": null,
+        "name": "Bedroll",
+        "weight": "7.00",
+        "description": "Portable bed.",
+        "length": null,
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.characteradventuringgear",
+    "pk": "0a5ec5b4-fb53-4559-b72e-439e93524c2c",
+    "fields": {
+        "character": "de1ec576-8aa9-4892-bfe5-e6193166a222",
+        "adventuring_gear": "bf13f7c5-28b1-433d-8dc2-f8d8cfd6c9a7",
+        "length": null,
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.characteradventuringgear",
+    "pk": "0b168fcd-bed6-4e7c-860e-c9ff138183f3",
+    "fields": {
+        "character": "de1ec576-8aa9-4892-bfe5-e6193166a222",
+        "adventuring_gear": "2dccf9bf-9502-4ebd-9583-50031cc4c574",
+        "length": null,
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.characteradventuringgear",
+    "pk": "37d22524-52f5-4479-9bef-3ab6d56c7c19",
+    "fields": {
+        "character": "de1ec576-8aa9-4892-bfe5-e6193166a222",
+        "adventuring_gear": "c7dd9699-55a0-4e9e-ae81-56319aa18c42",
+        "length": 60,
+        "quantity": null
+    }
+},
+{
+    "model": "equipment.characteradventuringgear",
+    "pk": "3e49cc30-ef7c-4505-8d42-546cafbba7f9",
+    "fields": {
+        "character": "8edc2380-fb63-4773-b059-1d7be818e6bd",
+        "adventuring_gear": "6ad0fff8-ec84-4196-b31d-f70e3ad9d53d",
+        "length": null,
+        "quantity": 4
+    }
+},
+{
+    "model": "equipment.characteradventuringgear",
+    "pk": "5ef60ed4-00f1-4de9-85be-5e51878f9e21",
+    "fields": {
+        "character": "de1ec576-8aa9-4892-bfe5-e6193166a222",
+        "adventuring_gear": "d4824576-80e4-4a4a-a103-10a174abd871",
+        "length": null,
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.characteradventuringgear",
+    "pk": "c4d995b3-de17-44d2-9462-7ee5c62286d6",
+    "fields": {
+        "character": "8edc2380-fb63-4773-b059-1d7be818e6bd",
+        "adventuring_gear": "2dccf9bf-9502-4ebd-9583-50031cc4c574",
+        "length": null,
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.equipmentpack",
+    "pk": "39fc2aaa-c4e8-464e-a7fc-be3bddcd2d17",
+    "fields": {
+        "name": "Nerd Pack",
+        "description": "Backpack with 2 books, a bottle of ink and an ink pen, a bedroll, and 5 days of rations.\r\nLook at this nerd with his books!",
+        "gold": 50
+    }
+},
+{
+    "model": "equipment.equipmentpack",
+    "pk": "d5549acd-be9f-4605-b052-8cda07f7e4ec",
+    "fields": {
+        "name": "Test Pack",
+        "description": "Testing shitty packs",
+        "gold": 5
+    }
+},
+{
+    "model": "equipment.equipmentpackgear",
+    "pk": "0090f2d5-f5d6-4c4e-a4fc-836c75efbec7",
+    "fields": {
+        "equipment_pack": "39fc2aaa-c4e8-464e-a7fc-be3bddcd2d17",
+        "adventuring_gear": "d4824576-80e4-4a4a-a103-10a174abd871",
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.equipmentpackgear",
+    "pk": "1046d382-73d7-4024-b4d8-adf3276ae311",
+    "fields": {
+        "equipment_pack": "39fc2aaa-c4e8-464e-a7fc-be3bddcd2d17",
+        "adventuring_gear": "bf13f7c5-28b1-433d-8dc2-f8d8cfd6c9a7",
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.equipmentpackgear",
+    "pk": "41267f9b-d802-4ead-8480-ef7ba679227a",
+    "fields": {
+        "equipment_pack": "d5549acd-be9f-4605-b052-8cda07f7e4ec",
+        "adventuring_gear": "2dccf9bf-9502-4ebd-9583-50031cc4c574",
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.equipmentpackgear",
+    "pk": "89036e68-4d4a-405b-a5d4-732840a2d3b1",
+    "fields": {
+        "equipment_pack": "39fc2aaa-c4e8-464e-a7fc-be3bddcd2d17",
+        "adventuring_gear": "13eda691-0885-4054-bcbf-7f6dee351ad0",
+        "quantity": 2
+    }
+},
+{
+    "model": "equipment.equipmentpackgear",
+    "pk": "8fd21dc9-30ba-4e83-827a-3738f4e6b11c",
+    "fields": {
+        "equipment_pack": "39fc2aaa-c4e8-464e-a7fc-be3bddcd2d17",
+        "adventuring_gear": "6ad0fff8-ec84-4196-b31d-f70e3ad9d53d",
+        "quantity": 5
+    }
+},
+{
+    "model": "equipment.equipmentpackgear",
+    "pk": "a3d75223-b65b-411d-984b-e1fd135260d3",
+    "fields": {
+        "equipment_pack": "d5549acd-be9f-4605-b052-8cda07f7e4ec",
+        "adventuring_gear": "6ad0fff8-ec84-4196-b31d-f70e3ad9d53d",
+        "quantity": 3
+    }
+},
+{
+    "model": "equipment.equipmentpackgear",
+    "pk": "a6a3dee5-4bdd-44b8-b2a8-60a88cc71097",
+    "fields": {
+        "equipment_pack": "d5549acd-be9f-4605-b052-8cda07f7e4ec",
+        "adventuring_gear": "d4824576-80e4-4a4a-a103-10a174abd871",
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.equipmentpackgear",
+    "pk": "bb57787e-8099-49ef-aafc-f9002eecccb9",
+    "fields": {
+        "equipment_pack": "39fc2aaa-c4e8-464e-a7fc-be3bddcd2d17",
+        "adventuring_gear": "b37501b6-7378-4ca3-9835-77550cb4b402",
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.equipmentpackgear",
+    "pk": "eacecdfa-9692-4792-8ee7-bc0f5867d3e8",
+    "fields": {
+        "equipment_pack": "39fc2aaa-c4e8-464e-a7fc-be3bddcd2d17",
+        "adventuring_gear": "2dccf9bf-9502-4ebd-9583-50031cc4c574",
+        "quantity": 1
+    }
+},
+{
+    "model": "equipment.tool",
+    "pk": "03dcea87-d64b-4dbf-8015-810fc63f7a22",
+    "fields": {
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 50,
+        "platinum": null,
+        "category": "ARTISANS_TOOLS",
+        "name": "Alchemist's Supplies",
+        "weight": "8.00",
+        "description": "Used by alchemists for alchemy."
+    }
+},
+{
+    "model": "equipment.tool",
+    "pk": "a02c7412-5085-412e-b1e6-ece32eb7b745",
+    "fields": {
+        "copper": null,
+        "silver": null,
+        "electrum": null,
+        "gold": 20,
+        "platinum": null,
+        "category": "ARTISANS_TOOLS",
+        "name": "Brewer's Supplies",
+        "weight": "9.00",
+        "description": "Let's get fu.."
+    }
+},
+{
+    "model": "equipment.tool",
+    "pk": "a91810c2-15c0-42a4-8691-a4e7794388bc",
+    "fields": {
+        "copper": 0,
+        "silver": 0,
+        "electrum": 0,
+        "gold": 30,
+        "platinum": 0,
+        "category": "MUSICAL_INSTRUMENT",
+        "name": "Bagpipes",
+        "weight": "6.00",
+        "description": "Annoying instrument"
+    }
+},
+{
+    "model": "equipment.tool",
+    "pk": "e5edf797-177c-461b-9240-449a08e1426d",
+    "fields": {
+        "copper": 0,
+        "silver": 0,
+        "electrum": 0,
+        "gold": 25,
+        "platinum": 0,
+        "category": null,
+        "name": "Thieves' Tools",
+        "weight": "1.00",
+        "description": "Tools to pick locks."
+    }
+}
+]

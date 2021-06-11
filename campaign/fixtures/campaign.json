@@ -1,0 +1,20 @@
+[
+{
+    "model": "campaign.campaign",
+    "pk": "5c0257f1-e8a2-4121-8d7d-0e6ad5654d66",
+    "fields": {
+        "name": "My first campaign",
+        "description": "Test data",
+        "story": ""
+    }
+},
+{
+    "model": "campaign.campaign",
+    "pk": "d4d3bfa0-2922-46d9-827c-c55a9c1600b1",
+    "fields": {
+        "name": "Campaign 2",
+        "description": "The campaign after my first one.",
+        "story": "Started this one because I was tired of playing my first campaign."
+    }
+}
+]

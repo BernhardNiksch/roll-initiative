@@ -1,0 +1,56 @@
+[
+{
+    "model": "features.feat",
+    "pk": "2a5cd758-9269-4090-b1eb-060ff71d2d09",
+    "fields": {
+        "name": "Durable",
+        "prerequisite": "",
+        "description": "Hardy and resilient, you gain the following benefits: \r\n * Increase your Constitution score by 1, to a maximum of 20.\r\n * When you roll a Hit Die to regain hit points, the minimum number of hit points you regain from the roll equals twice your Constitution modifier (minimum of 2)."
+    }
+},
+{
+    "model": "features.feat",
+    "pk": "2f08373e-a38a-43eb-b9cc-56c07e3acae1",
+    "fields": {
+        "name": "Unarmored Defense",
+        "prerequisite": "",
+        "description": "While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit."
+    }
+},
+{
+    "model": "features.feat",
+    "pk": "4d6072ac-09a1-4711-b441-b74063d756d3",
+    "fields": {
+        "name": "Defensive Duelist",
+        "prerequisite": "Dexterity 13 or higher",
+        "description": "When you are wielding a finesse weapon with which you are proficient and another creature hits you with a melee attack, you can use your reaction to add your proficiency bonus to your AC for that attack, potentially causing the attack to miss you."
+    }
+},
+{
+    "model": "features.feat",
+    "pk": "e1363994-70f4-441c-b8a4-78f31a078835",
+    "fields": {
+        "name": "Reckless Attack",
+        "prerequisite": "",
+        "description": "You can throw aside all concern for defense to attack with fierce desperation. When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn."
+    }
+},
+{
+    "model": "features.characterclassfeature",
+    "pk": 1,
+    "fields": {
+        "feat": "2f08373e-a38a-43eb-b9cc-56c07e3acae1",
+        "character_class": "a65632b2-17d0-43d1-9ba9-61ee9b68e744",
+        "level": 1
+    }
+},
+{
+    "model": "features.characterclassfeature",
+    "pk": 2,
+    "fields": {
+        "feat": "e1363994-70f4-441c-b8a4-78f31a078835",
+        "character_class": "a65632b2-17d0-43d1-9ba9-61ee9b68e744",
+        "level": 2
+    }
+},
+]

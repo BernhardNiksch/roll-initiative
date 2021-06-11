@@ -1,0 +1,154 @@
+[
+{
+    "model": "monster.monstertype",
+    "pk": "1f3e5120-d1c6-4e07-bc36-56b7dacebbf7",
+    "fields": {
+        "name": "Stegosaurus",
+        "armor_class": 13,
+        "hit_die": 8,
+        "hit_die_count": 7,
+        "strength": 18,
+        "dexterity": 11,
+        "constitution": 17,
+        "intelligence": 5,
+        "wisdom": 12,
+        "charisma": 6
+    }
+},
+{
+    "model": "monster.monstertype",
+    "pk": "2f2ffb68-5c2a-4fb3-bf09-481629d8a58a",
+    "fields": {
+        "name": "Centaur",
+        "armor_class": 14,
+        "hit_die": 10,
+        "hit_die_count": 6,
+        "strength": 17,
+        "dexterity": 15,
+        "constitution": 15,
+        "intelligence": 10,
+        "wisdom": 12,
+        "charisma": 11
+    }
+},
+{
+    "model": "monster.monstertype",
+    "pk": "ab7b0033-4d4c-44f6-b274-6e876556d5b8",
+    "fields": {
+        "name": "Giant Toad",
+        "armor_class": 15,
+        "hit_die": 6,
+        "hit_die_count": 3,
+        "strength": 15,
+        "dexterity": 10,
+        "constitution": 12,
+        "intelligence": 4,
+        "wisdom": 8,
+        "charisma": 6
+    }
+},
+{
+    "model": "monster.monster",
+    "pk": "1955d244-a38d-4a1c-8891-a891eb8ee582",
+    "fields": {
+        "max_hp": 50,
+        "current_hp": 50,
+        "temporary_hp": 0,
+        "armor_class": 13,
+        "strength": 18,
+        "dexterity": 11,
+        "constitution": 17,
+        "intelligence": 5,
+        "wisdom": 12,
+        "charisma": 6,
+        "backstory": "Still has nightmares from the asteroids.",
+        "campaign": "5c0257f1-e8a2-4121-8d7d-0e6ad5654d66",
+        "copper": 0,
+        "silver": 0,
+        "electrum": 0,
+        "gold": 0,
+        "platinum": 0,
+        "monster_type": "1f3e5120-d1c6-4e07-bc36-56b7dacebbf7",
+        "first_name": "Ally",
+        "last_name": ""
+    }
+},
+{
+    "model": "monster.monster",
+    "pk": "34dcb71f-3988-4993-875b-7f8c9ebab1ff",
+    "fields": {
+        "max_hp": 39,
+        "current_hp": 32,
+        "temporary_hp": 0,
+        "armor_class": 16,
+        "strength": 17,
+        "dexterity": 13,
+        "constitution": 15,
+        "intelligence": 10,
+        "wisdom": 11,
+        "charisma": 6,
+        "backstory": "",
+        "campaign": "d4d3bfa0-2922-46d9-827c-c55a9c1600b1",
+        "copper": null,
+        "silver": 4,
+        "electrum": null,
+        "gold": 28,
+        "platinum": null,
+        "monster_type": "2f2ffb68-5c2a-4fb3-bf09-481629d8a58a",
+        "first_name": "Pholus",
+        "last_name": ""
+    }
+},
+{
+    "model": "monster.monster",
+    "pk": "916e5e55-0842-45f1-b8e0-ed056139332d",
+    "fields": {
+        "max_hp": 12,
+        "current_hp": 12,
+        "temporary_hp": 0,
+        "armor_class": 15,
+        "strength": 15,
+        "dexterity": 10,
+        "constitution": 12,
+        "intelligence": 4,
+        "wisdom": 8,
+        "charisma": 6,
+        "backstory": "Once read a book about a princess kissing a frog. Devoted his life to ridding the world of all eligible bachelors.",
+        "campaign": "5c0257f1-e8a2-4121-8d7d-0e6ad5654d66",
+        "copper": 5,
+        "silver": 6,
+        "electrum": 0,
+        "gold": 2,
+        "platinum": 0,
+        "monster_type": "ab7b0033-4d4c-44f6-b274-6e876556d5b8",
+        "first_name": "Todd",
+        "last_name": "Lake"
+    }
+},
+{
+    "model": "monster.monster",
+    "pk": "fb9404c4-27cb-4902-b2c6-45590b29f14d",
+    "fields": {
+        "max_hp": 55,
+        "current_hp": 47,
+        "temporary_hp": 0,
+        "armor_class": 13,
+        "strength": 19,
+        "dexterity": 11,
+        "constitution": 17,
+        "intelligence": 4,
+        "wisdom": 12,
+        "charisma": 6,
+        "backstory": "Suffers from tooth ache and takes it out on people.",
+        "campaign": "5c0257f1-e8a2-4121-8d7d-0e6ad5654d66",
+        "copper": 1,
+        "silver": 0,
+        "electrum": 0,
+        "gold": 0,
+        "platinum": 0,
+        "monster_type": "1f3e5120-d1c6-4e07-bc36-56b7dacebbf7",
+        "first_name": "Allan",
+        "last_name": ""
+    }
+}
+]
