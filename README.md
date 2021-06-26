@@ -8,8 +8,8 @@ for D&D, built using [Django](https://www.djangoproject.com/) and
 
 ## Getting Started
 
-Assuming you already have [PostgreSQL](https://www.postgresql.org/) installed, and all necessary
-users created; Create the DB tables by applying the migrations.
+Assuming you already have [PostgreSQL](https://www.postgresql.org/) installed, all necessary
+users created, and requirements installed; Create the DB tables by applying the migrations.
 
     python manage.py migrate
 
