@@ -26,7 +26,7 @@ class MonsterType(models.Model):
         return self.name
 
 
-class Monster(AbilityScoreHealthMixin, CampaignManagementMixin, MoneyMixin):
+class Monster(AbilityScoreHealthMixin, CampaignManagementMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     monster_type = models.ForeignKey("MonsterType", on_delete=models.PROTECT)
     first_name = models.CharField(max_length=30)
