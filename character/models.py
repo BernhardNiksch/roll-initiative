@@ -112,7 +112,6 @@ class Character(AbilityScoreHealthMixin, CampaignManagementMixin, MoneyMixin):
     def grow_older(self, years=1):
         self.age = self.age + years
 
-    def level_up(self):
+    def level_up(self, max_hp_increase):
         self.level = self.level + 1
-        hit_die = self.character_class.hit_die
-        self.increase_max_health(roll(hit_die))
+        self.increase_max_hp(max_hp_increase, add_constitution=True)
