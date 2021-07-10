@@ -28,7 +28,7 @@ class AbilityScoreHealthMixin(models.Model):
             # assuming no temporary max health increase allowed
             raise ValidationError(_("Health cannot exceed max health."))
 
-    def damage(self, hp: int):
+    def take_damage(self, hp: int):
         health = self.current_hp - hp
         if health < 0:
             health = 0
