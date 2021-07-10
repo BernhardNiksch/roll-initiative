@@ -111,7 +111,7 @@
         "saving_throw_proficiencies": "[\"CHARISMA\", \"DEXTERITY\"]",
         "armor_proficiencies": [
             "c4f91e5b-6c0a-4a33-a908-80c2ed3f6aa4",
-            "44b65e10-a532-43fa-b2e6-4ef3b1ae85e6",
+            "44b65e10-a532-43fa-b2e6-4ef3b1ae85e6"
         ],
         "weapon_proficiencies": [
             "97331616-e8e2-4596-85e8-b961145f8b7f",
@@ -245,7 +245,7 @@
         "first_name": "Gerold",
         "last_name": "Ellefson",
         "age": 21,
-        "race": "83f34ea2-1412-40b4-b3cc-aab1d7554353",
+        "race": "3d1b90d2-4a2f-4556-98b0-8a3c851944a6",
         "character_class": "40d863b8-1c71-42c9-a28d-3608006eafbc",
         "level": 1,
         "experience_points": 35,
