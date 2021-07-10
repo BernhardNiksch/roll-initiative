@@ -125,7 +125,7 @@ class CharacterWeaponSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_damage(obj):
-        return obj.weapon.damage()
+        return obj.weapon.take_damage()
 
     @staticmethod
     def get_damage_type(obj):
