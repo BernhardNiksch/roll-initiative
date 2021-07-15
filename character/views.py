@@ -82,7 +82,7 @@ class CharacterListView(ManagedListView):
     """
 
     search_fields = (
-        "first_name", "last_name", "title", "age", "level", "race__name", "character_class__name",
+        "first_name", "last_name", "title", "race__name", "character_class__name",
     )
     sort_fields = ("first_name", "last_name", "title", "age", "level", "race", "character_class")
     field_map = {
