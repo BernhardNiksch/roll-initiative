@@ -117,6 +117,34 @@ class TestCharacterViews(TestCase):
     #     hit_die = [cc["hit_die"] for cc in response.data["results"]]
     #     self.assertEqual(hit_die, sorted(hit_die, reverse=True))
 
+    def test_character_class_get(self):
+        """
+        Test that retrieving a character class works.
+        """
+
+        pk = "ea023174-5774-4bba-ad10-8d4bcd8483b9"  # Bard
+        url = f"/api/character/class/{pk}/"
+        with self.assertNumQueries(5):
+            response = self.client.get(url)
+            self.assertEqual(response.data["name"], "Bard")
+            self.assertEqual(response.data["hit_die"], 8)
+            self.assertEqual(len(response.data["armor_proficiencies"]), 2)
+            self.assertEqual(len(response.data["tool_proficiencies"]), 1)
+            self.assertEqual(len(response.data["weapon_proficiencies"]), 4)
+            self.assertEqual(len(response.data["features"]), 0)
+
+        pk = "a65632b2-17d0-43d1-9ba9-61ee9b68e744"  # Barbarian
+        url = f"/api/character/class/{pk}/"
+        with self.assertNumQueries(7):
+            # Prefetch on feature is not working yet, so there's a extra query per feature.
+            response = self.client.get(url)
+            self.assertEqual(response.data["name"], "Barbarian")
+            self.assertEqual(response.data["hit_die"], 12)
+            self.assertEqual(len(response.data["armor_proficiencies"]), 6)
+            self.assertEqual(len(response.data["tool_proficiencies"]), 0)
+            self.assertEqual(len(response.data["weapon_proficiencies"]), 5)
+            self.assertEqual(len(response.data["features"]), 2)
+
     def test_character_race_list_pagination(self):
         url = "/api/character/race/list/"
         page_size = 2
@@ -139,6 +167,35 @@ class TestCharacterViews(TestCase):
 
         results = self.search_results("hom", url, 1)
         self.assertEqual(results[0]["name"], "Homo Sapiens")
+
+    def test_character_race_get(self):
+        """
+        Test that retrieving a character race works.
+        """
+
+        pk = "50d6fd1c-052e-4ed6-8473-ec55a4920770"  # Dwarf
+        url = f"/api/character/race/{pk}/"
+        with self.assertNumQueries(1):
+            response = self.client.get(url)
+            self.assertEqual(response.data["name"], "Dwarf")
+            self.assertEqual(response.data["description"], "Short and stout.")
+            self.assertEqual(response.data["speed"], 25)
+            self.assertEqual(response.data["strength_increase"], 2)
+            self.assertEqual(response.data["dexterity_increase"], 0)
+            self.assertEqual(response.data["constitution_increase"], 1)
+            self.assertEqual(response.data["languages"], ["English", "Dwarvish"])
+
+        pk = "3d1b90d2-4a2f-4556-98b0-8a3c851944a6"  # Elf
+        url = f"/api/character/race/{pk}/"
+        with self.assertNumQueries(1):
+            response = self.client.get(url)
+            self.assertEqual(response.data["name"], "Elf")
+            self.assertEqual(response.data["description"], "Tall-ish folk with pointy ears.")
+            self.assertEqual(response.data["speed"], 30)
+            self.assertEqual(response.data["strength_increase"], 0)
+            self.assertEqual(response.data["dexterity_increase"], 2)
+            self.assertEqual(response.data["constitution_increase"], 0)
+            self.assertEqual(response.data["languages"], ["English", "Elvish"])
 
     def test_character_list_pagination(self):
         url = "/api/character/list/"
@@ -188,3 +245,23 @@ class TestCharacterViews(TestCase):
         self.assertEqual(results[0]["title"], "mister")
         self.assertEqual(results[1]["first_name"], "Stevey")
         self.assertEqual(results[1]["character_class"]["name"], "Fighter")
+
+    def test_character_get(self):
+        """
+        Test that retrieving a character works.
+        """
+
+        pk = "de1ec576-8aa9-4892-bfe5-e6193166a222"  # mister Gerold
+        url = f"/api/character/{pk}/"
+        with self.assertNumQueries(2):
+            response = self.client.get(url)
+            self.assertEqual(response.data["title"], "mister")
+            self.assertEqual(response.data["first_name"], "Gerold")
+            self.assertEqual(response.data["max_hp"], 8)
+            self.assertEqual(response.data["current_hp"], 6)
+            self.assertEqual(response.data["armor_class"], 11)
+            self.assertEqual(response.data["dexterity"], 14)
+            self.assertEqual(response.data["constitution"], 10)
+            self.assertEqual(response.data["languages"], ["Common", "Elvish"])
+            self.assertEqual(response.data["race"]["name"], "Elf")
+            self.assertEqual(response.data["character_class"]["name"], "Ranger")
