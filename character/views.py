@@ -41,7 +41,7 @@ class CharacterClassView(RetrieveAPIView):
     """
 
     queryset = CharacterClass.objects.all().prefetch_related(
-        "armor_proficiencies", "tool_proficiencies", "weapon_proficiencies", "features",
+        "armor_proficiencies", "tool_proficiencies", "weapon_proficiencies",
     )  # TODO reduce queries on feat
     serializer_class = CharacterClassSerializer
 
