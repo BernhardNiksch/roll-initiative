@@ -1,5 +1,5 @@
 from django.test import TestCase
-from rest_framework.status import HTTP_201_CREATED
+from rest_framework.status import HTTP_201_CREATED, HTTP_404_NOT_FOUND
 
 from campaign.models import Campaign
 from character.models import CharacterClass, CharacterRace, Character
@@ -287,7 +287,7 @@ class TestCharacterViews(TestCase):
         """
 
         pk = "de1ec576-8aa9-4892-bfe5-e6193166a222"  # mister Gerold
-        url = f"/api/character/{pk}/"
+        url = f"{self.base_url}{pk}/"
         with self.assertNumQueries(2):
             response = self.client.get(url)
             self.assertEqual(response.data["title"], "mister")
@@ -301,6 +301,15 @@ class TestCharacterViews(TestCase):
             self.assertEqual(response.data["race"]["name"], "Elf")
             self.assertEqual(response.data["character_class"]["name"], "Ranger")
             self.assertEqual(response.data["campaign"]["name"], "My first campaign")
+
+    def test_character_get_404(self):
+        """Test that 404 is returned if the character does not exist."""
+
+        pk = "65083c70-8adb-42d2-9024-3890cdf03841"  # Random uuid. Character shouldn't exist.
+        url = f"{self.base_url}{pk}/"
+        with self.assertNumQueries(1):
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, HTTP_404_NOT_FOUND)
 
     def test_character_add(self):
         character_data = self.character_data
