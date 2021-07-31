@@ -1,5 +1,5 @@
 from django.test import TestCase
-from rest_framework.status import HTTP_201_CREATED, HTTP_404_NOT_FOUND
+from rest_framework.status import HTTP_201_CREATED, HTTP_404_NOT_FOUND, HTTP_204_NO_CONTENT
 
 from campaign.models import Campaign
 from character.models import CharacterClass, CharacterRace, Character
@@ -342,3 +342,26 @@ class TestCharacterViews(TestCase):
         self.assertEqual(character.experience_points, 0)
         self.assertEqual(character.temporary_hp, 0)
         character.delete()
+
+    def test_character_delete(self):
+        character_data = self.character_data
+        character_data["campaign"] = self.campaign
+        character_data["character_class"] = self.bard
+        character_data["race"] = self.elf
+        character = Character(**character_data)
+        character.save()
+        url = f"{self.base_url}{character.id}/"
+        with self.assertNumQueries(7):
+            response = self.client.delete(url)
+            self.assertEqual(response.status_code, HTTP_204_NO_CONTENT)
+        with self.assertRaises(Character.DoesNotExist):
+            character.refresh_from_db()
+
+    def test_character_delete_404(self):
+        """Test that 404 is returned when deleting a character that does not exist."""
+
+        pk = "65083c70-8adb-42d2-9024-3890cdf03841"  # Random uuid. Character shouldn't exist.
+        url = f"{self.base_url}{pk}/"
+        with self.assertNumQueries(1):
+            response = self.client.delete(url)
+            self.assertEqual(response.status_code, HTTP_404_NOT_FOUND)

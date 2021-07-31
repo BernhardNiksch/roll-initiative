@@ -3,6 +3,7 @@ from rest_framework.generics import (
     GenericAPIView,
     get_object_or_404,
     RetrieveAPIView,
+    RetrieveDestroyAPIView,
 )
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -98,12 +99,8 @@ class CharacterAddView(CreateAPIView):
     serializer_class = CharacterAddSerializer
 
 
-class CharacterView(RetrieveAPIView):
-    """
-    Manage Characters.
-
-    For now just a GET.
-    """
+class CharacterView(RetrieveDestroyAPIView):
+    """Manage a character's details."""
 
     queryset = Character.objects.all().select_related("race", "character_class", "campaign")
     serializer_class = CharacterDetailSerializer
