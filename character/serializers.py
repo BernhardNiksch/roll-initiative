@@ -114,6 +114,13 @@ class CharacterListEntrySerializer(serializers.ModelSerializer):
         )
 
 
+class CharacterAddSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Character
+        exclude = ["adventuring_gear", "armor", "tools", "weapons", "feats"]
+
+
 class CharacterSerializer(serializers.ModelSerializer):
     """
     Serialize character details.
