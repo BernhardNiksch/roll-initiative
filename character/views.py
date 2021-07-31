@@ -1,6 +1,3 @@
-from django.db import connection
-from django.db.models import Prefetch
-from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework.generics import (
     CreateAPIView,
     GenericAPIView,
@@ -21,7 +18,6 @@ from .serializers import (
     CharacterSerializer,
 )
 from common.views import ManagedListView
-from equipment.models import CharacterAdventuringGear, CharacterArmor, CharacterWeapon
 
 
 class CharacterClassListView(ManagedListView):
