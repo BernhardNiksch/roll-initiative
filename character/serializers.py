@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from campaign.serializers import CampaignNameSerializer
 from .models import CharacterClass, CharacterRace, Character
 from equipment.serializers import (
     ArmorNameSerializer,
@@ -121,11 +122,12 @@ class CharacterAddSerializer(serializers.ModelSerializer):
         exclude = ["adventuring_gear", "armor", "tools", "weapons", "feats"]
 
 
-class CharacterSerializer(serializers.ModelSerializer):
+class CharacterDetailSerializer(serializers.ModelSerializer):
     """
-    Serialize character details.
+    Serialize character details with race, class, and campaign names included.
     """
 
+    campaign = CampaignNameSerializer()
     character_class = CharacterClassNameSerializer()
     race = CharacterRaceNameSerializer()
 

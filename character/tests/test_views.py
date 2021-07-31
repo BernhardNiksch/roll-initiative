@@ -300,6 +300,7 @@ class TestCharacterViews(TestCase):
             self.assertEqual(response.data["languages"], ["Common", "Elvish"])
             self.assertEqual(response.data["race"]["name"], "Elf")
             self.assertEqual(response.data["character_class"]["name"], "Ranger")
+            self.assertEqual(response.data["campaign"]["name"], "My first campaign")
 
     def test_character_add(self):
         character_data = self.character_data

@@ -15,7 +15,7 @@ from .serializers import (
     CharacterEquipmentSerializer,
     CharacterListEntrySerializer,
     CharacterRaceSerializer,
-    CharacterSerializer,
+    CharacterDetailSerializer,
 )
 from common.views import ManagedListView
 
@@ -105,8 +105,8 @@ class CharacterView(RetrieveAPIView):
     For now just a GET.
     """
 
-    queryset = Character.objects.all().select_related("race", "character_class")
-    serializer_class = CharacterSerializer
+    queryset = Character.objects.all().select_related("race", "character_class", "campaign")
+    serializer_class = CharacterDetailSerializer
 
 
 class CharacterEquipmentView(GenericAPIView):
