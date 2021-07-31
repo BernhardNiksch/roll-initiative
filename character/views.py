@@ -12,6 +12,7 @@ from rest_framework.response import Response
 
 from .models import CharacterClass, CharacterRace, Character
 from .serializers import (
+    CharacterAddSerializer,
     CharacterClassListEntrySerializer,
     CharacterClassSerializer,
     CharacterEquipmentSerializer,
@@ -94,7 +95,14 @@ class CharacterListView(ManagedListView):
     serializer_class = CharacterListEntrySerializer
 
 
-class CharacterView(CreateAPIView, RetrieveAPIView):
+class CharacterAddView(CreateAPIView):
+    """Add a new character."""
+
+    queryset = Character.objects.all()
+    serializer_class = CharacterAddSerializer
+
+
+class CharacterView(RetrieveAPIView):
     """
     Manage Characters.
 

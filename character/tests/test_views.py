@@ -1,4 +1,8 @@
 from django.test import TestCase
+from rest_framework.status import HTTP_201_CREATED
+
+from campaign.models import Campaign
+from character.models import CharacterClass, CharacterRace, Character
 
 
 class TestCharacterViews(TestCase):
@@ -8,6 +12,37 @@ class TestCharacterViews(TestCase):
         "equipment/fixtures/equipment.json",
         "features/fixtures/features.json",
     ]
+
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
+        cls.bard = CharacterClass.objects.get(name="Bard")
+        cls.elf = CharacterRace.objects.get(name="Elf")
+        cls.campaign = Campaign.objects.get(name="Campaign 2")
+        cls.base_url = "/api/character/"
+        cls.character_data = {
+            "character_class": cls.bard.id,
+            "race": cls.elf.id,
+            "campaign": cls.campaign.id,
+            "max_hp": 35,
+            "current_hp": 28,
+            "armor_class": 12,
+            "strength": 9,
+            "dexterity": 14,
+            "constitution": 13,
+            "intelligence": 10,
+            "wisdom": 11,
+            "charisma": 14,
+            "backstory": "",
+            "gold": 15,
+            "title": "Sire",
+            "first_name": "Elvish",
+            "last_name": "Presley",
+            "age": 65,
+            "level": 3,
+            "experience_points": 1200,
+            "languages": ["Common", "Elvish"],
+        }
 
     def pagination_tester(self, url, page_size, result_count):
         response = self.client.post(url)
@@ -265,3 +300,35 @@ class TestCharacterViews(TestCase):
             self.assertEqual(response.data["languages"], ["Common", "Elvish"])
             self.assertEqual(response.data["race"]["name"], "Elf")
             self.assertEqual(response.data["character_class"]["name"], "Ranger")
+
+    def test_character_add(self):
+        character_data = self.character_data
+        with self.assertNumQueries(4):
+            response = self.client.post(self.base_url, data=self.character_data)
+            self.assertEqual(response.status_code, HTTP_201_CREATED)
+            self.assertEqual(response.data["title"], character_data["title"])
+        character = Character.objects.get(first_name="Elvish", last_name="Presley")
+        self.assertEqual(character.character_class, self.bard)
+        self.assertEqual(character.race, self.elf)
+        self.assertEqual(character.campaign, self.campaign)
+        self.assertEqual(character.age, character_data["age"])
+        self.assertEqual(character.current_hp, character_data["current_hp"])
+        self.assertEqual(character.last_name, character_data["last_name"])
+        self.assertEqual(character.dexterity, character_data["dexterity"])
+        self.assertEqual(character.level, character_data["level"])
+        self.assertEqual(character.experience_points, character_data["experience_points"])
+        character.delete()
+
+    def test_character_add_default_values(self):
+        character_data = self.character_data.copy()
+        character_data.pop("level")
+        character_data.pop("experience_points")
+        with self.assertNumQueries(4):
+            response = self.client.post(self.base_url, data=character_data)
+            self.assertEqual(response.status_code, HTTP_201_CREATED)
+            self.assertEqual(response.data["title"], character_data["title"])
+        character = Character.objects.get(first_name="Elvish", last_name="Presley")
+        self.assertEqual(character.level, 1)
+        self.assertEqual(character.experience_points, 0)
+        self.assertEqual(character.temporary_hp, 0)
+        character.delete()
