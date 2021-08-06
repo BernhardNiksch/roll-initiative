@@ -37,6 +37,9 @@ class AbilityScoreHealthMixin(models.Model):
     def heal(self, hp: int):
         max_health = self.max_hp
         health = self.current_hp + hp
+        if health < 0:
+            # negative adjustments allowed
+            health = 0
         if health > max_health:
             health = max_health
         self.current_hp = health
@@ -46,6 +49,10 @@ class AbilityScoreHealthMixin(models.Model):
             hp = hp + ability_modifier(self.constitution)
         old_max_health = self.max_hp
         self.max_hp = old_max_health + hp
+        if self.max_hp < 0:
+            # negative adjustments allowed
+            self.max_hp = 0
+
         # determine new current health proportionate to new max health
         if old_max_health:
             # Let's not divide by 0
