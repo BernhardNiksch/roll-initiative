@@ -47,7 +47,11 @@ class AbilityScoreHealthMixin(models.Model):
         old_max_health = self.max_hp
         self.max_hp = old_max_health + hp
         # determine new current health proportionate to new max health
-        self.current_hp = ceil(self.current_hp * self.max_hp / old_max_health)
+        if old_max_health:
+            # Let's not divide by 0
+            self.current_hp = ceil(self.current_hp * self.max_hp / old_max_health)
+        else:
+            self.current_hp = self.max_hp
 
 
 class CampaignManagementMixin(models.Model):

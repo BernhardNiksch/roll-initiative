@@ -184,8 +184,8 @@ class TestCharacter(TestCase):
         character.heal(55)
         self.assertEqual(character.current_hp, 30)  # can't heal up to more than max_hp
 
-    def test_healing(self):
-        """Test that a character can be healed."""
+    def test_increase_max_health(self):
+        """Test that a character's max HP can be adjusted."""
 
         constitution = 14  # this give a modifier of 2
         character = self.create_character(
@@ -214,3 +214,13 @@ class TestCharacter(TestCase):
         character.increase_max_hp(13, add_constitution=True)  # +2 constitution modifier, total 15
         self.assertEqual(character.max_hp, 35)
         self.assertEqual(character.current_hp, 27)  # 15 * 0.75 = 11.25, rounded up to 12
+
+        # Test thet increasing from 0 doesn't divide by 0 to calculate a relative current_hp
+        # increase, but rather assign full HP.
+        character.max_hp = 0
+        character.current_hp = 0
+        self.assertEqual(character.max_hp, 0)
+        self.assertEqual(character.current_hp, 0)
+        character.increase_max_hp(30)  # don't add constitution mod
+        self.assertEqual(character.max_hp, 30)
+        self.assertEqual(character.current_hp, 30)
