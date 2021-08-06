@@ -60,6 +60,11 @@ class AbilityScoreHealthMixin(models.Model):
         else:
             self.current_hp = self.max_hp
 
+    def adjust_temporary_hp(self, hp: int):
+        self.temporary_hp += hp
+        if self.temporary_hp < 0:
+            self.temporary_hp = 0
+
 
 class CampaignManagementMixin(models.Model):
     backstory = models.TextField(blank=True)

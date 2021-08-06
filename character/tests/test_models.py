@@ -242,3 +242,17 @@ class TestCharacter(TestCase):
         character.increase_max_hp(-100)  # don't add constitution mod
         self.assertEqual(character.max_hp, 0)
         self.assertEqual(character.current_hp, 0)
+
+    def test_adjust_temporary_health(self):
+        """Test that a character's temporary HP can be adjusted."""
+
+        character = self.create_character(first_name="Drew")
+        self.assertEqual(character.temporary_hp, 0)
+        character.adjust_temporary_hp(20)
+        self.assertEqual(character.temporary_hp, 20)
+        character.adjust_temporary_hp(10)
+        self.assertEqual(character.temporary_hp, 30)
+        character.adjust_temporary_hp(-15)
+        self.assertEqual(character.temporary_hp, 15)
+        character.adjust_temporary_hp(-40)
+        self.assertEqual(character.temporary_hp, 0)
