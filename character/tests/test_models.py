@@ -182,7 +182,11 @@ class TestCharacter(TestCase):
         character.heal(10)
         self.assertEqual(character.current_hp, 25)
         character.heal(55)
-        self.assertEqual(character.current_hp, 30)  # can't heal up to more than max_hp
+        self.assertEqual(character.current_hp, 30)  # can't have current_hp more than max_hp
+        character.heal(-10)
+        self.assertEqual(character.current_hp, 20)  # allow for negative hp adjustments
+        character.heal(-45)
+        self.assertEqual(character.current_hp, 0)  # can't have current_hp less than 0
 
     def test_increase_max_health(self):
         """Test that a character's max HP can be adjusted."""
@@ -224,3 +228,17 @@ class TestCharacter(TestCase):
         character.increase_max_hp(30)  # don't add constitution mod
         self.assertEqual(character.max_hp, 30)
         self.assertEqual(character.current_hp, 30)
+
+        # Test decreasing max HP
+        character.max_hp = 30
+        character.current_hp = 20
+        character.increase_max_hp(-10)  # don't add constitution mod
+        self.assertEqual(character.max_hp, 20)
+        self.assertEqual(character.current_hp, 14)
+
+        # Decreasing to less than 0 should give 0
+        character.max_hp = 30
+        character.current_hp = 20
+        character.increase_max_hp(-100)  # don't add constitution mod
+        self.assertEqual(character.max_hp, 0)
+        self.assertEqual(character.current_hp, 0)
