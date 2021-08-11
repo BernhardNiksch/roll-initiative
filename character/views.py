@@ -1,9 +1,11 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework.generics import (
     CreateAPIView,
     GenericAPIView,
     get_object_or_404,
     RetrieveAPIView,
     RetrieveDestroyAPIView,
+    RetrieveUpdateAPIView,
 )
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -11,12 +13,14 @@ from rest_framework.response import Response
 from .models import CharacterClass, CharacterRace, Character
 from .serializers import (
     CharacterAddSerializer,
+    CharacterAdjustHealthSerializer,
     CharacterClassListEntrySerializer,
     CharacterClassSerializer,
+    CharacterDetailSerializer,
     CharacterEquipmentSerializer,
+    CharacterHealthSerializer,
     CharacterListEntrySerializer,
     CharacterRaceSerializer,
-    CharacterDetailSerializer,
 )
 from common.views import ManagedListView
 
@@ -140,3 +144,44 @@ class CharacterEquipmentView(GenericAPIView):
             weight += sum(float(item["weight"]) for item in items)
         response_data["total_weight"] = f"{weight:.2f}"
         return Response(response_data)
+
+
+class CharacterHealthView(RetrieveUpdateAPIView):
+    """
+    Get, update, or adjust a character's max, current, and temporary health.
+
+    PUT and PATCH updates the HP with the requested valued.
+    POST adjusts HP by the requested value.
+    """
+
+    queryset = Character.objects.all()
+    serializer_class = CharacterHealthSerializer
+
+    @extend_schema(request=CharacterAdjustHealthSerializer)
+    def post(self, request: Request, pk):
+        """Adjust the character's current, maximum, and temporary HP by the requested values."""
+
+        serializer = CharacterAdjustHealthSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        request_data = serializer.validated_data
+        character = self.get_object()
+
+        update_fields = []
+        heal_amount = request_data["current_hp"]
+        if heal_amount:
+            character.heal(heal_amount)
+            update_fields.append("current_hp")
+        max_hp_adjustment = request_data["max_hp"]
+        add_constitution = request_data["add_constitution_to_max_hp"]
+        if max_hp_adjustment or add_constitution:
+            character.increase_max_hp(max_hp_adjustment, add_constitution=add_constitution)
+            update_fields.append("max_hp")
+        temporary_hp_adjustment = request_data["temporary_hp"]
+        if temporary_hp_adjustment:
+            character.adjust_temporary_hp(temporary_hp_adjustment)
+            update_fields.append("temporary_hp")
+
+        if update_fields:
+            character.save(update_fields=update_fields)
+        serializer = self.get_serializer(character)
+        return Response(serializer.data)

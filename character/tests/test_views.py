@@ -1,5 +1,13 @@
+from unittest.mock import patch
+
 from django.test import TestCase
-from rest_framework.status import HTTP_201_CREATED, HTTP_404_NOT_FOUND, HTTP_204_NO_CONTENT
+from rest_framework.status import (
+    HTTP_200_OK,
+    HTTP_201_CREATED,
+    HTTP_204_NO_CONTENT,
+    HTTP_400_BAD_REQUEST,
+    HTTP_404_NOT_FOUND,
+)
 
 from campaign.models import Campaign
 from character.models import CharacterClass, CharacterRace, Character
@@ -43,6 +51,19 @@ class TestCharacterViews(TestCase):
             "experience_points": 1200,
             "languages": ["Common", "Elvish"],
         }
+
+    def create_character(self, data: dict = None):
+        data = data or {}
+        character_data = {
+            **self.character_data,
+            "campaign": self.campaign,
+            "character_class": self.bard,
+            "race": self.elf,
+            **data,
+        }
+        character = Character(**character_data)
+        character.save()
+        return character, character_data
 
     def pagination_tester(self, url, page_size, result_count):
         response = self.client.post(url)
@@ -344,12 +365,7 @@ class TestCharacterViews(TestCase):
         character.delete()
 
     def test_character_delete(self):
-        character_data = self.character_data
-        character_data["campaign"] = self.campaign
-        character_data["character_class"] = self.bard
-        character_data["race"] = self.elf
-        character = Character(**character_data)
-        character.save()
+        character, character_data = self.create_character()
         url = f"{self.base_url}{character.id}/"
         with self.assertNumQueries(7):
             response = self.client.delete(url)
@@ -365,3 +381,168 @@ class TestCharacterViews(TestCase):
         with self.assertNumQueries(1):
             response = self.client.delete(url)
             self.assertEqual(response.status_code, HTTP_404_NOT_FOUND)
+
+    def test_character_health_get(self):
+        pk = "de1ec576-8aa9-4892-bfe5-e6193166a222"  # mister Gerold
+        url = f"{self.base_url}{pk}/hit-points/"
+        with self.assertNumQueries(1):
+            response = self.client.get(url)
+            self.assertEqual(response.data["current_hp"], 6)
+            self.assertEqual(response.data["max_hp"], 8)
+            self.assertEqual(response.data["temporary_hp"], 0)
+
+    def test_character_health_update(self):
+        character, character_data = self.create_character()
+        url = f"{self.base_url}{character.id}/hit-points/"
+
+        data = {
+            "current_hp": 10,
+            "max_hp": 12,
+            "temporary_hp": 3,
+        }
+        with self.assertNumQueries(2):
+            response = self.client.put(url, data=data, content_type="application/json")
+            self.assertEqual(response.status_code, HTTP_200_OK)
+        character.refresh_from_db()
+        self.assertEqual(character.current_hp, 10)
+        self.assertEqual(character.max_hp, 12)
+        self.assertEqual(character.temporary_hp, 3)
+
+        data = {
+            "current_hp": 6,
+            "max_hp": 8,
+            "temporary_hp": 0,
+        }
+        with self.assertNumQueries(2):
+            response = self.client.put(url, data=data, content_type="application/json")
+            self.assertEqual(response.status_code, HTTP_200_OK)
+            self.assertEqual(response.data["current_hp"], 6)
+            self.assertEqual(response.data["max_hp"], 8)
+            self.assertEqual(response.data["temporary_hp"], 0)
+        character.refresh_from_db()
+        self.assertEqual(character.current_hp, 6)
+        self.assertEqual(character.max_hp, 8)
+        self.assertEqual(character.temporary_hp, 0)
+
+        character.delete()
+
+    def test_character_health_partial_update(self):
+        character, character_data = self.create_character({"temporary_hp": 1})
+        url = f"{self.base_url}{character.id}/hit-points/"
+
+        data = {"current_hp": 12}
+        with self.assertNumQueries(2):
+            response = self.client.patch(url, data=data, content_type="application/json")
+            self.assertEqual(response.status_code, HTTP_200_OK)
+            self.assertEqual(response.data["current_hp"], 12)
+            self.assertEqual(response.data["max_hp"], character_data["max_hp"])
+            self.assertEqual(response.data["temporary_hp"], character_data["temporary_hp"])
+        character.refresh_from_db()
+        self.assertEqual(character.current_hp, 12)
+        self.assertEqual(character.max_hp, character_data["max_hp"])
+        self.assertEqual(character.temporary_hp, character_data["temporary_hp"])
+
+        data = {
+            "max_hp": 18,
+            "temporary_hp": 3,
+        }
+        with self.assertNumQueries(2):
+            response = self.client.patch(url, data=data, content_type="application/json")
+            self.assertEqual(response.status_code, HTTP_200_OK)
+            self.assertEqual(response.data["current_hp"], 12)
+            self.assertEqual(response.data["max_hp"], 18)
+            self.assertEqual(response.data["temporary_hp"], 3)
+        character.refresh_from_db()
+        self.assertEqual(character.current_hp, 12)
+        self.assertEqual(character.max_hp, 18)
+        self.assertEqual(character.temporary_hp, 3)
+
+        data = {
+            "current_hp": 6,
+            "max_hp": 8,
+            "temporary_hp": 0,
+        }
+        with self.assertNumQueries(2):
+            response = self.client.patch(url, data=data, content_type="application/json")
+            self.assertEqual(response.status_code, HTTP_200_OK)
+            self.assertEqual(response.data["current_hp"], 6)
+            self.assertEqual(response.data["max_hp"], 8)
+            self.assertEqual(response.data["temporary_hp"], 0)
+        character.refresh_from_db()
+        self.assertEqual(character.current_hp, 6)
+        self.assertEqual(character.max_hp, 8)
+        self.assertEqual(character.temporary_hp, 0)
+
+        character.delete()
+
+    def test_character_health_update_validate_current_hp_less_than_max(self):
+        character, character_data = self.create_character()
+        url = f"{self.base_url}{character.id}/hit-points/"
+        self.assertTrue(character.current_hp > 0, "Test requires current HP greater than 0.")
+
+        payloads = (
+            {"max_hp": character.current_hp - 1},
+            {"current_hp": character.max_hp + 1},
+            {"current_hp": 13, "max_hp": 9}
+        )
+        for data in payloads:
+            current_hp = data.get("current_hp", character.current_hp)
+            max_hp = data.get("max_hp", character.max_hp)
+            response = self.client.patch(url, data=data, content_type="application/json")
+            self.assertEqual(response.status_code, HTTP_400_BAD_REQUEST)
+            self.assertEqual(
+                response.data["non_field_errors"][0],
+                f"The current HP ({current_hp}) may not exceed the maximum HP ({max_hp}).",
+            )
+        character.delete()
+
+    @patch("character.models.Character.adjust_temporary_hp")
+    @patch("character.models.Character.heal")
+    @patch("character.models.Character.increase_max_hp")
+    def test_character_health_adjust(self, mock_max_hp, mock_heal, mock_temporary_hp):
+        character, character_data = self.create_character()
+        url = f"{self.base_url}{character.id}/hit-points/"
+
+        data = {"current_hp": 2}
+        with self.assertNumQueries(2):
+            response = self.client.post(url, data=data, content_type="application/json")
+            self.assertEqual(response.status_code, HTTP_200_OK)
+        mock_heal.assert_called_with(2)
+        mock_temporary_hp.assert_not_called()
+        mock_max_hp.assert_not_called()
+
+        mock_heal.reset_mock()
+        mock_temporary_hp.reset_mock()
+        mock_max_hp.reset_mock()
+
+        data = {"max_hp": 5}
+        with self.assertNumQueries(2):
+            response = self.client.post(url, data=data, content_type="application/json")
+            self.assertEqual(response.status_code, HTTP_200_OK)
+        mock_max_hp.assert_called_with(5, add_constitution=False)
+        mock_heal.assert_not_called()
+        mock_temporary_hp.assert_not_called()
+
+        mock_heal.reset_mock()
+        mock_temporary_hp.reset_mock()
+        mock_max_hp.reset_mock()
+
+        data = {"add_constitution_to_max_hp": True, "temporary_hp": 4}
+        with self.assertNumQueries(2):
+            response = self.client.post(url, data=data, content_type="application/json")
+            self.assertEqual(response.status_code, HTTP_200_OK)
+        mock_max_hp.assert_called_with(0, add_constitution=True)
+        mock_temporary_hp.assert_called_with(4)
+        mock_heal.assert_not_called()
+
+        mock_heal.reset_mock()
+        mock_temporary_hp.reset_mock()
+        mock_max_hp.reset_mock()
+
+        data = {"max_hp": -3, "add_constitution_to_max_hp": True}
+        with self.assertNumQueries(2):
+            response = self.client.post(url, data=data, content_type="application/json")
+            self.assertEqual(response.status_code, HTTP_200_OK)
+        mock_max_hp.assert_called_with(-3, add_constitution=True)
+        mock_heal.assert_not_called()
+        mock_temporary_hp.assert_not_called()
