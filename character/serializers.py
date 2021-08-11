@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
 from campaign.serializers import CampaignNameSerializer
 from .models import CharacterClass, CharacterRace, Character
@@ -150,3 +151,31 @@ class CharacterEquipmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Character
         fields = ["adventuring_gear", "armor", "tools", "weapons"]
+
+
+class CharacterAdjustHealthSerializer(serializers.ModelSerializer):
+    max_hp = serializers.IntegerField(default=0)
+    add_constitution_to_max_hp = serializers.BooleanField(default=False)
+    current_hp = serializers.IntegerField(default=0)
+    temporary_hp = serializers.IntegerField(default=0)
+
+    class Meta:
+        model = Character
+        fields = ["current_hp", "max_hp", "temporary_hp", "add_constitution_to_max_hp"]
+
+
+class CharacterHealthSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Character
+        fields = ["current_hp", "max_hp", "temporary_hp"]
+
+    def validate(self, attrs):
+        if "current_hp" in attrs or "max_hp" in attrs:
+            current_hp = attrs.get("current_hp", self.instance.current_hp)
+            max_hp = attrs.get("max_hp", self.instance.max_hp)
+            if current_hp > max_hp:
+                raise ValidationError(
+                    f"The current HP ({current_hp}) may not exceed the maximum HP ({max_hp})."
+                )
+        return attrs

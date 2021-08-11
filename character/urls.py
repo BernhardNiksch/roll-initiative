@@ -5,6 +5,7 @@ from .views import (
     CharacterClassListView,
     CharacterClassView,
     CharacterEquipmentView,
+    CharacterHealthView,
     CharacterListView,
     CharacterRaceListView,
     CharacterRaceView,
@@ -21,4 +22,5 @@ urlpatterns = [
     path('', CharacterAddView.as_view(), name="character"),
     path('<str:pk>/', CharacterView.as_view(), name="character_detail"),
     path('<str:pk>/equipment/', CharacterEquipmentView.as_view(), name="character_equipment"),
+    path('<str:pk>/hit-points/', CharacterHealthView.as_view(), name="character_hit_points"),
 ]
