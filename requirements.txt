@@ -17,9 +17,12 @@ charset-normalizer==2.1.0
 django==3.2
     # via
     #   -r requirements.in
+    #   django-filter
     #   django-spaghetti-and-meatballs
     #   djangorestframework
     #   drf-spectacular
+django-filter==22.1
+    # via -r requirements.in
 django-schema-graph==1.2.0
     # via -r requirements.in
 django-spaghetti-and-meatballs==0.4.2

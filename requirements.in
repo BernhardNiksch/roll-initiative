@@ -1,4 +1,5 @@
 Django==3.2
+django-filter
 django-schema-graph
 django-spaghetti-and-meatballs
 djangorestframework
