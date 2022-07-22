@@ -1,0 +1,7 @@
+Django==3.2
+django-schema-graph
+django-spaghetti-and-meatballs
+djangorestframework
+drf-spectacular
+psycopg2
+requests
