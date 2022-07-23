@@ -1,4 +1,5 @@
 from unittest.mock import patch
+from urllib.parse import urlencode
 
 from django.test import TestCase
 from rest_framework.status import (
@@ -11,6 +12,7 @@ from rest_framework.status import (
 
 from campaign.models import Campaign
 from character.models import CharacterClass, CharacterRace, Character
+from character.views import CharacterClassListView
 
 
 class TestCharacterViews(TestCase):
@@ -65,8 +67,11 @@ class TestCharacterViews(TestCase):
         character.save()
         return character, character_data
 
-    def pagination_tester(self, url, page_size, result_count):
-        response = self.client.post(url)
+    def pagination_tester(self, url, page_size, result_count, list_api_view=False):
+        if not list_api_view:
+            response = self.client.post(url)
+        else:
+            response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["count"], result_count)
         self.assertEqual(len(response.data["results"]), response.data["count"])
@@ -75,7 +80,10 @@ class TestCharacterViews(TestCase):
         expected_first_result = response.data["results"][0]
         next_expected_first_result = response.data["results"][page_size]
 
-        response = self.client.post(f"{url}?page_size={page_size}")
+        if not list_api_view:
+            response = self.client.post(f"{url}?page_size={page_size}")
+        else:
+            response = self.client.get(f"{url}?page_size={page_size}")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["count"], result_count)
         self.assertIsNone(response.data.get("previous"))
@@ -88,7 +96,11 @@ class TestCharacterViews(TestCase):
             page_2_size = result_count % page_size
             # Check that the second page is the right size if there aren't enough records for
             # a full page.
-        response = self.client.post(f"{url}{next_link}")
+
+        if not list_api_view:
+            response = self.client.post(f"{url}{next_link}")
+        else:
+            response = self.client.get(next_link)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["count"], result_count)
         self.assertIsNone(response.data.get("next"))
@@ -96,13 +108,40 @@ class TestCharacterViews(TestCase):
         self.assertEqual(response.data["results"][0], next_expected_first_result)
         previous_link = response.data["previous"]
 
-        response = self.client.post(f"{url}{previous_link}")
+        if not list_api_view:
+            response = self.client.post(f"{url}{previous_link}")
+        else:
+            response = self.client.get(previous_link)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["results"][0], expected_first_result)
 
-    def search_results(self, search, url, result_count):
+    def ordering_tester(self, url, fields, default_field):
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        default_order = [result[default_field] for result in response.data["results"]]
+        self.assertEqual(default_order, sorted(default_order))
+
+        for field in fields:
+            data = {"ordering": field}
+            response = self.client.get(f"{url}?{urlencode(data)}")
+            self.assertEqual(response.status_code, 200)
+            # self.assertNotEqual(response.data["results"], default_order)
+            forward_order = [result[field] for result in response.data["results"]]
+            self.assertEqual(forward_order, sorted(forward_order))
+
+            data = {"ordering": f"-{field}"}
+            response = self.client.get(f"{url}?{urlencode(data)}")
+            self.assertEqual(response.status_code, 200)
+            backward_order = [result[field] for result in response.data["results"]]
+            self.assertEqual(backward_order, list(reversed(forward_order)))
+
+    def search_results(self, search, url, result_count, list_api_view=False):
         data = {"search": search}
-        response = self.client.post(url, data=data)
+        if list_api_view:
+            params = urlencode(data)
+            response = self.client.get(f"{url}?{params}")
+        else:
+            response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["count"], result_count)
         self.assertEqual(len(response.data["results"]), result_count)
@@ -114,7 +153,7 @@ class TestCharacterViews(TestCase):
         url = "/api/character/class/list/"
         page_size = 2
         result_count = 4
-        self.pagination_tester(url, page_size, result_count)
+        self.pagination_tester(url, page_size, result_count, list_api_view=True)
 
     def test_character_class_list_search(self):
         """
@@ -126,52 +165,22 @@ class TestCharacterViews(TestCase):
 
         url = "/api/character/class/list/"
 
-        results = self.search_results("bar", url, 2)  # This should find Bard and Barbarian
+        results = self.search_results("bar", url, 2, True)  # This should find Bard and Barbarian
         self.assertEqual(results[0]["name"], "Barbarian")
         self.assertEqual(results[1]["name"], "Bard")
 
-        results = self.search_results("ter", url, 1)  # This should find Fighter
+        results = self.search_results("ter", url, 1, True)  # This should find Fighter
         self.assertEqual(results[0]["name"], "Fighter")
 
-    # TODO not sure why, but the dynamic fields of the ManagedListSerializer do not work in testing.
-    # def test_character_class_list_sorting(self):
-    #     """
-    #     Test that the character class list is searchable.
-    #
-    #     The character class list is searchable on the class' name.
-    #     The response should contain only matching results.
-    #     """
-    #
-    #     url = "/api/character/class/list/"
-    #
-    #     response = self.client.post(url)
-    #     self.assertEqual(response.status_code, 200)
-    #     default_order = response.data["results"]
-    #
-    #     # By default, the class list is sorted by name.
-    #     data = {"sort": {"name": True}}  # Should return same as default order
-    #     response = self.client.post(url, data=data)
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(response.data["results"], default_order)
-    #
-    #     data = {"sort": {"name": False}}  # Should reverse the default order
-    #     response = self.client.post(url, data=data)
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(response.data["results"], list(reversed(default_order)))
-    #
-    #     data = {"sort": {"hit_die": True}}
-    #     response = self.client.post(url, data=data)
-    #     self.assertEqual(response.status_code, 200)
-    #     # self.assertNotEqual(response.data["results"], default_order)
-    #     hit_die = [cc["hit_die"] for cc in response.data["results"]]
-    #     self.assertEqual(hit_die, sorted(hit_die))
-    #
-    #     data = {"sort": {"hit_die": False}}
-    #     response = self.client.post(url, data=data)
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertNotEqual(response.data["results"], default_order)
-    #     hit_die = [cc["hit_die"] for cc in response.data["results"]]
-    #     self.assertEqual(hit_die, sorted(hit_die, reverse=True))
+    def test_character_class_list_sorting(self):
+        """
+        Test that the character class list can be sorted/ordered.
+        """
+
+        url = "/api/character/class/list/"
+        ordering_fields = CharacterClassListView.ordering_fields
+        default_ordering_field = CharacterClassListView.ordering[0]
+        self.ordering_tester(url, ordering_fields, default_ordering_field)
 
     def test_character_class_get(self):
         """

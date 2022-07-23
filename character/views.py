@@ -1,15 +1,19 @@
 from drf_spectacular.utils import extend_schema
+from rest_framework import filters
 from rest_framework.generics import (
     CreateAPIView,
     GenericAPIView,
     get_object_or_404,
+    ListAPIView,
     RetrieveAPIView,
     RetrieveDestroyAPIView,
     RetrieveUpdateAPIView,
 )
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.request import Request
 from rest_framework.response import Response
 
+from common.pagination import Pagination
 from .models import CharacterClass, CharacterRace, Character
 from .serializers import (
     CharacterAddSerializer,
@@ -25,14 +29,16 @@ from .serializers import (
 from common.views import ManagedListView
 
 
-class CharacterClassListView(ManagedListView):
+class CharacterClassListView(ListAPIView):
     """
-    Paginated character class list view with filter, search, and sorting capability.
+    Paginated character class list view with search, and sorting capability.
     """
 
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ("name",)
-    sort_fields = ("name", "hit_die")
-    ordering = ["name", "id"]
+    ordering_fields = ("name", "hit_die")
+    ordering = ("name", "id")
+    pagination_class = Pagination
     queryset = CharacterClass.objects.all()
     serializer_class = CharacterClassListEntrySerializer
 
