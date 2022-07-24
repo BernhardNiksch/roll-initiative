@@ -43,3 +43,14 @@ def roll_multiple_dice(dice_dict, modifier=0):
         "total": _get_total(results, modifier),
     }
     return response
+
+
+def result_values_for_field(results: list, field: str) -> list:
+    values = []
+    field_keys = field.split("__")
+    for result in results:
+        value = result
+        for key in field_keys:
+            value = value[key]
+        values.append(value)
+    return values
