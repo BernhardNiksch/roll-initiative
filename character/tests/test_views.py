@@ -12,7 +12,7 @@ from rest_framework.status import (
 
 from campaign.models import Campaign
 from character.models import CharacterClass, CharacterRace, Character
-from character.views import CharacterClassListView
+from character.views import CharacterClassListView, CharacterRaceListView
 
 
 class TestCharacterViews(TestCase):
@@ -214,7 +214,7 @@ class TestCharacterViews(TestCase):
         url = "/api/character/race/list/"
         page_size = 2
         result_count = 3
-        self.pagination_tester(url, page_size, result_count)
+        self.pagination_tester(url, page_size, result_count, True)
 
     def test_character_race_list_search(self):
         """
@@ -226,12 +226,22 @@ class TestCharacterViews(TestCase):
 
         url = "/api/character/race/list/"
 
-        results = self.search_results("F", url, 2)
+        results = self.search_results("F", url, 2, True)
         self.assertEqual(results[0]["name"], "Dwarf")
         self.assertEqual(results[1]["name"], "Elf")
 
-        results = self.search_results("hom", url, 1)
+        results = self.search_results("hom", url, 1, True)
         self.assertEqual(results[0]["name"], "Homo Sapiens")
+
+    def test_character_race_list_sorting(self):
+        """
+        Test that the character class list can be sorted/ordered.
+        """
+
+        url = "/api/character/race/list/"
+        ordering_fields = CharacterRaceListView.ordering_fields
+        default_ordering_field = CharacterRaceListView.ordering[0]
+        self.ordering_tester(url, ordering_fields, default_ordering_field)
 
     def test_character_race_get(self):
         """
