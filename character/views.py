@@ -86,21 +86,21 @@ class CharacterRaceView(RetrieveAPIView):
     serializer_class = CharacterRaceSerializer
 
 
-class CharacterListView(ManagedListView):
+class CharacterListView(ListAPIView):
     """
     Paginated character class list view with filter, search, and sorting capability.
     """
 
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    ordering_fields = (
+        "first_name", "last_name", "title", "age", "level", "race__name", "character_class__name"
+    )
+    ordering = ["first_name", "last_name", "id"]
+    pagination_class = Pagination
+    queryset = Character.objects.all().prefetch_related("race", "character_class")
     search_fields = (
         "first_name", "last_name", "title", "race__name", "character_class__name",
     )
-    sort_fields = ("first_name", "last_name", "title", "age", "level", "race", "character_class")
-    field_map = {
-        "race": "race__name",
-        "character_class": "character_class__name",
-    }
-    ordering = ["first_name", "last_name", "id"]
-    queryset = Character.objects.all().prefetch_related("race", "character_class")
     serializer_class = CharacterListEntrySerializer
 
 

@@ -12,7 +12,7 @@ from rest_framework.status import (
 
 from campaign.models import Campaign
 from character.models import CharacterClass, CharacterRace, Character
-from character.views import CharacterClassListView, CharacterRaceListView
+from character.views import CharacterClassListView, CharacterRaceListView, CharacterListView
 from common.helpers import result_values_for_field
 
 
@@ -277,7 +277,7 @@ class TestCharacterViews(TestCase):
         url = "/api/character/list/"
         page_size = 2
         result_count = 3
-        self.pagination_tester(url, page_size, result_count)
+        self.pagination_tester(url, page_size, result_count, True)
 
     def test_character_list_search(self):
         """
@@ -291,36 +291,46 @@ class TestCharacterViews(TestCase):
         url = "/api/character/list/"
 
         # Search title
-        results = self.search_results("bruh", url, 1)
+        results = self.search_results("bruh", url, 1, True)
         self.assertEqual(results[0]["title"], "Bruh")
         self.assertEqual(results[0]["first_name"], "Stevey")
 
         # Search first_name
-        results = self.search_results("Gerold", url, 1)
+        results = self.search_results("Gerold", url, 1, True)
         self.assertEqual(results[0]["title"], "mister")
         self.assertEqual(results[0]["first_name"], "Gerold")
 
         # Search last_name
-        results = self.search_results("odson", url, 1)
+        results = self.search_results("odson", url, 1, True)
         self.assertEqual(results[0]["first_name"], "Glod")
         self.assertEqual(results[0]["last_name"], "Glodson")
 
         # Search character class
-        results = self.search_results("fight", url, 1)
+        results = self.search_results("fight", url, 1, True)
         self.assertEqual(results[0]["first_name"], "Stevey")
         self.assertEqual(results[0]["character_class"]["name"], "Fighter")
 
         # Search character race
-        results = self.search_results("Dwa", url, 1)
+        results = self.search_results("Dwa", url, 1, True)
         self.assertEqual(results[0]["first_name"], "Glod")
         self.assertEqual(results[0]["race"]["name"], "Dwarf")
 
         # Search across fields
-        results = self.search_results("ter", url, 2)
+        results = self.search_results("ter", url, 2, True)
         self.assertEqual(results[0]["first_name"], "Gerold")
         self.assertEqual(results[0]["title"], "mister")
         self.assertEqual(results[1]["first_name"], "Stevey")
         self.assertEqual(results[1]["character_class"]["name"], "Fighter")
+
+    def test_character_list_sorting(self):
+        """
+        Test that the character class list can be sorted/ordered.
+        """
+
+        url = "/api/character/list/"
+        ordering_fields = CharacterListView.ordering_fields
+        default_ordering_field = CharacterListView.ordering[0]
+        self.ordering_tester(url, ordering_fields, default_ordering_field)
 
     def test_character_get(self):
         """
