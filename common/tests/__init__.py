@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from django.test import SimpleTestCase
 
-from ..helpers import ability_modifier, roll, roll_multiple_dice, _get_total
+from ..helpers import ability_modifier, roll, roll_multiple_dice, result_values_for_field
 
 
 class TestHelpers(SimpleTestCase):
@@ -46,3 +46,21 @@ class TestHelpers(SimpleTestCase):
         self.assertEqual(roll_results["modifier"], 2)
         self.assertEqual(roll_results["results"], {"6": [3, 4], "12": [7], "20": [16]})
         self.assertEqual(roll_results["total"], 32)
+
+    def test_result_values_for_field(self):
+        values_a = [1, 2, 3]
+        values_b = ["a", "b", "c"]
+        results = []
+        for a, b in zip(values_a, values_b):
+            result = {
+                "normal_field": a,
+                "related_model": {
+                    "blah": None,
+                    "related_field": b,
+                    "asdf": 0,
+                },
+                "ignored_field": "",
+            }
+            results.append(result)
+        self.assertEqual(result_values_for_field(results, "normal_field"), values_a)
+        self.assertEqual(result_values_for_field(results, "related_model__related_field"), values_b)

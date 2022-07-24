@@ -13,6 +13,7 @@ from rest_framework.status import (
 from campaign.models import Campaign
 from character.models import CharacterClass, CharacterRace, Character
 from character.views import CharacterClassListView, CharacterRaceListView
+from common.helpers import result_values_for_field
 
 
 class TestCharacterViews(TestCase):
@@ -126,13 +127,13 @@ class TestCharacterViews(TestCase):
             response = self.client.get(f"{url}?{urlencode(data)}")
             self.assertEqual(response.status_code, 200)
             # self.assertNotEqual(response.data["results"], default_order)
-            forward_order = [result[field] for result in response.data["results"]]
+            forward_order = result_values_for_field(response.data["results"], field)
             self.assertEqual(forward_order, sorted(forward_order))
 
             data = {"ordering": f"-{field}"}
             response = self.client.get(f"{url}?{urlencode(data)}")
             self.assertEqual(response.status_code, 200)
-            backward_order = [result[field] for result in response.data["results"]]
+            backward_order = result_values_for_field(response.data["results"], field)
             self.assertEqual(backward_order, list(reversed(forward_order)))
 
     def search_results(self, search, url, result_count, list_api_view=False):
